@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Components/BottleItem.qml</file>
+        <file>Components/CustomButton.qml</file>
+        <file>Components/CustomNavButton.qml</file>
+        <file>Components/CustomTabButton.qml</file>
+        <file>Components/InputFieldLabel.qml</file>
+        <file>Components/LabelComboBox.qml</file>
+        <file>Components/LabelInputField.qml</file>
+        <file>Components/NumKeyboard.qml</file>
+        <file>Components/StatusItem.qml</file>
+        <file>Pages/SubPages/Debug/CalibrationPage.qml</file>
+        <file>Pages/SubPages/Debug/ProcessCtrlPage.qml</file>
+        <file>Pages/SubPages/Debug/PumpValveCtrlPage.qml</file>
+        <file>Pages/SubPages/Debug/StatePage.qml</file>
+        <file>Pages/SubPages/History/BottleSamplePage.qml</file>
+        <file>Pages/SubPages/History/DoorPage.qml</file>
+        <file>Pages/SubPages/History/FaultPage.qml</file>
+        <file>Pages/SubPages/History/LogPage.qml</file>
+        <file>Pages/SubPages/History/ParamChangePage.qml</file>
+        <file>Pages/SubPages/History/RetainedSamplePage.qml</file>
+        <file>Pages/SubPages/History/SamplingPage.qml</file>
+        <file>Pages/SubPages/ParamSet/ChemicalAddPage.qml</file>
+        <file>Pages/SubPages/ParamSet/CommunicationPage.qml</file>
+        <file>Pages/SubPages/ParamSet/FridgePage.qml</file>
+        <file>Pages/SubPages/ParamSet/MaintainPage.qml</file>
+        <file>Pages/SubPages/ParamSet/PreprocessorPage.qml</file>
+        <file>Pages/SubPages/ParamSet/PumpValvePage.qml</file>
+        <file>Pages/SubPages/WorkMode/AnalogChannelPage.qml</file>
+        <file>Pages/SubPages/WorkMode/ModePage.qml</file>
+        <file>Pages/SubPages/WorkMode/HourSampleSupplyPage.qml</file>
+        <file>Pages/AboutPage.qml</file>
+        <file>Pages/DebugPage.qml</file>
+        <file>Pages/HistoryPage.qml</file>
+        <file>Pages/HomePage.qml</file>
+        <file>Pages/ParamSetPage.qml</file>
+        <file>Pages/WorkModePage.qml</file>
+        <file>Components/PopUps.qml</file>
+    </qresource>
+</RCC>
