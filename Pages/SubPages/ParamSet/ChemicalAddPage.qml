@@ -33,6 +33,7 @@ Page {
         topCh1.currentIndex = ChemicalAddPageConfig.globalChannel1
         topCh2.currentIndex = ChemicalAddPageConfig.globalChannel2
         topCh3.currentIndex = ChemicalAddPageConfig.globalChannel3
+        topCh4.currentIndex = ChemicalAddPageConfig.globalChannel4
     }
 
     function saveAllToConfig() {
@@ -48,6 +49,7 @@ Page {
         ChemicalAddPageConfig.globalChannel1 = topCh1.currentIndex
         ChemicalAddPageConfig.globalChannel2 = topCh2.currentIndex
         ChemicalAddPageConfig.globalChannel3 = topCh3.currentIndex
+        ChemicalAddPageConfig.globalChannel4 = topCh4.currentIndex
         ChemicalAddPageConfig.saveAllConfig()
     }
 
@@ -58,10 +60,11 @@ Page {
         spacing: 10
 
         RowLayout {
-            spacing: 60
-            LabelComboBox { id: topCh1; labelText: qsTr("加药通道1"); comboModel: ["硫酸","盐酸","硝酸","氢氧化钠"]; fontSize:18; labelWidth:80; comboWidth:140; comboHeight:30 }
-            LabelComboBox { id: topCh2; labelText: qsTr("加药通道2"); comboModel: ["硫酸","盐酸","硝酸","氢氧化钠"]; fontSize:18; labelWidth:80; comboWidth:140; comboHeight:30 }
-            LabelComboBox { id: topCh3; labelText: qsTr("加药通道3"); comboModel: ["硫酸","盐酸","硝酸","氢氧化钠"]; fontSize:18; labelWidth:80; comboWidth:140; comboHeight:30 }
+            spacing: 10
+            LabelComboBox { id: topCh1; labelText: qsTr("加药通道1"); comboModel: ["硫酸","盐酸","硝酸","氢氧化钠"]; fontSize:17; labelWidth:75; comboWidth:120; comboHeight:30 }
+            LabelComboBox { id: topCh2; labelText: qsTr("加药通道2"); comboModel: ["硫酸","盐酸","硝酸","氢氧化钠"]; fontSize:17; labelWidth:75; comboWidth:120; comboHeight:30 }
+            LabelComboBox { id: topCh3; labelText: qsTr("加药通道3"); comboModel: ["硫酸","盐酸","硝酸","氢氧化钠"]; fontSize:17; labelWidth:75; comboWidth:120; comboHeight:30 }
+            LabelComboBox { id: topCh4; labelText: qsTr("加药通道4"); comboModel: ["硫酸","盐酸","硝酸","氢氧化钠"]; fontSize:17; labelWidth:75; comboWidth:120; comboHeight:30 }
         }
 
         RowLayout {
@@ -88,7 +91,7 @@ Page {
                         LabelComboBox {
                             Layout.leftMargin:30; fontSize:18
                             labelText: idx + 1
-                            comboModel: ["不加药","通道1","通道2","通道3"]
+                            comboModel: ["不加药","通道1","通道2","通道3", "通道4"]
                             comboWidth:105; comboHeight:28
                             // ✅ 组件创建时，自动加入数组缓存
                             Component.onCompleted: {
@@ -118,7 +121,7 @@ Page {
                         LabelComboBox {
                             Layout.leftMargin:26; fontSize:18
                             labelText: idx + 1
-                            comboModel: ["不加药","通道1","通道2","通道3"]
+                            comboModel: ["不加药","通道1","通道2","通道3", "通道4"]
                             labelWidth:55; comboWidth:105; comboHeight:28
                             // ✅ 组件创建时，自动加入数组缓存
                             Component.onCompleted: {

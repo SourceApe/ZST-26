@@ -11,8 +11,6 @@ CommunicationPage::CommunicationPage()
 
     m_settings = new QSettings("/opt/zst26/config.ini", QSettings::IniFormat, this);
     m_settings->setIniCodec("UTF-8");
-
-    // 就和你ModePage一样！直接加载，默认值自带兜底
     loadAllConfig();
 }
 
@@ -27,63 +25,61 @@ CommunicationPage* CommunicationPage::instance()
     return &s_instance;
 }
 
-QVariantList CommunicationPage::comConfig() const
-{
-    QVariantList list;
-    for (const auto& item : m_comList) {
-        QVariantMap map;
-        map["baud"] = item.baud;
-        map["modeIndex"] = item.modeIndex;
-        map["masterSlaveIndex"] = item.masterSlaveIndex;
-        map["address"] = item.address;
-        list.append(map);
-    }
-    return list;
+QString CommunicationPage::rs485Addr() const { return m_rs485Addr; }
+void CommunicationPage::setRs485Addr(const QString &value) {
+    if (m_rs485Addr == value) return;
+    m_rs485Addr = value;
+    emit rs485AddrChanged();
 }
 
-void CommunicationPage::setComConfig(const QVariantList& config)
-{
-    if (config.size() != 6)
-        return;
-
-    for (int i = 0; i < 6; ++i) {
-        QVariantMap map = config.at(i).toMap();
-        m_comList[i].baud = map["baud"].toString();
-        m_comList[i].modeIndex = map["modeIndex"].toInt();
-        m_comList[i].masterSlaveIndex = map["masterSlaveIndex"].toInt();
-        m_comList[i].address = map["address"].toString();
-    }
-
-    emit comConfigChanged();
+int CommunicationPage::rs485BaudIndex() const { return m_rs485BaudIndex; }
+void CommunicationPage::setRs485BaudIndex(int value) {
+    if (m_rs485BaudIndex == value) return;
+    m_rs485BaudIndex = value;
+    emit rs485BaudIndexChanged();
 }
 
-// ====================== 完全和你 ModePage 一样的写法 ======================
+int CommunicationPage::rs485ProtoIndex() const { return m_rs485ProtoIndex; }
+void CommunicationPage::setRs485ProtoIndex(int value) {
+    if (m_rs485ProtoIndex == value) return;
+    m_rs485ProtoIndex = value;
+    emit rs485ProtoIndexChanged();
+}
+
+int CommunicationPage::rs232BaudIndex() const { return m_rs232BaudIndex; }
+void CommunicationPage::setRs232BaudIndex(int value) {
+    if (m_rs232BaudIndex == value) return;
+    m_rs232BaudIndex = value;
+    emit rs232BaudIndexChanged();
+}
+
+int CommunicationPage::rs232ProtoIndex() const { return m_rs232ProtoIndex; }
+void CommunicationPage::setRs232ProtoIndex(int value) {
+    if (m_rs232ProtoIndex == value) return;
+    m_rs232ProtoIndex = value;
+    emit rs232ProtoIndexChanged();
+}
+
+// ====================== 加载配置 ======================
 void CommunicationPage::loadAllConfig()
 {
-    m_comList.resize(6);
+    setRs485Addr(m_settings->value("Comm/RS485Addr", "1").toString());
+    setRs485BaudIndex(m_settings->value("Comm/RS485BaudIndex", 0).toInt());
+    setRs485ProtoIndex(m_settings->value("Comm/RS485ProtoIndex", 0).toInt());
 
-    for (int i = 0; i < 6; ++i) {
-        QString prefix = QString("Communication/COM%1_").arg(i + 1);
-
-        // 你怎么写ModePage，我就怎么写这里！
-        m_comList[i].baud = m_settings->value(prefix + "Baud", "9600").toString();
-        m_comList[i].modeIndex = m_settings->value(prefix + "Mode", 0).toInt();
-        m_comList[i].masterSlaveIndex = m_settings->value(prefix + "MasterSlave", 0).toInt();
-        m_comList[i].address = m_settings->value(prefix + "Address", "1").toString();
-    }
-
-    emit comConfigChanged();
+    setRs232BaudIndex(m_settings->value("Comm/RS232BaudIndex", 0).toInt());
+    setRs232ProtoIndex(m_settings->value("Comm/RS232ProtoIndex", 0).toInt());
 }
 
+// ====================== 保存配置 ======================
 void CommunicationPage::saveAllConfig()
 {
-    for (int i = 0; i < 6; ++i) {
-        QString prefix = QString("Communication/COM%1_").arg(i + 1);
-        m_settings->setValue(prefix + "Baud", m_comList[i].baud);
-        m_settings->setValue(prefix + "Mode", m_comList[i].modeIndex);
-        m_settings->setValue(prefix + "MasterSlave", m_comList[i].masterSlaveIndex);
-        m_settings->setValue(prefix + "Address", m_comList[i].address);
-    }
+    m_settings->setValue("Comm/RS485Addr", m_rs485Addr);
+    m_settings->setValue("Comm/RS485BaudIndex", m_rs485BaudIndex);
+    m_settings->setValue("Comm/RS485ProtoIndex", m_rs485ProtoIndex);
+
+    m_settings->setValue("Comm/RS232BaudIndex", m_rs232BaudIndex);
+    m_settings->setValue("Comm/RS232ProtoIndex", m_rs232ProtoIndex);
 
     m_settings->sync();
 }

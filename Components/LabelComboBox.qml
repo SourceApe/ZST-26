@@ -25,7 +25,6 @@ RowLayout {
         visible: labelText !== ""
     }
 
-    // 下拉框
     ComboBox {
         id: comboBox
         Layout.preferredWidth: comboWidth
@@ -39,6 +38,37 @@ RowLayout {
             color: comboBox.enabled ? "white" : "#f0f0f0"
             border.color: comboBox.enabled ? "#2196F3" : "#cccccc"
             border.width: 1
+            MouseArea {
+                anchors.fill: parent
+                onPressed: {
+                    mainWindow.beep()
+                    mouse.accepted = false
+                }
+            }
+        }
+
+        delegate: ItemDelegate {
+            width: parent.width
+            height: comboBox.height
+
+            property bool isActive: pressed || hovered || (comboBox.currentIndex === index)
+
+            background: Rectangle {
+                color: isActive ? "#3498db" : "#2c3e50"
+            }
+
+            contentItem: Text {
+                text: modelData
+                font.pixelSize: comboBox.font.pixelSize
+                color: "white"
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignLeft
+                x: 8
+            }
+
+            onClicked: {
+                mainWindow.beep()
+            }
         }
     }
 }

@@ -44,7 +44,19 @@ void CalibrationPage::setPump3Factor(const QString &value) {
     m_pump3Factor = value; emit pump3FactorChanged();
 }
 
+QString CalibrationPage::pump4Factor() const { return m_pump4Factor; }
+void CalibrationPage::setPump4Factor(const QString &value) {
+    if (m_pump4Factor == value) return;
+    m_pump4Factor = value; emit pump4FactorChanged();
+}
+
 // 采样泵
+QString CalibrationPage::samplePump200ml() const { return m_samplePump200ml; }
+void CalibrationPage::setSamplePump200ml(const QString &value) {
+    if (m_samplePump200ml == value) return;
+    m_samplePump200ml = value; emit samplePump200mlChanged();
+}
+
 QString CalibrationPage::samplePump500ml() const { return m_samplePump500ml; }
 void CalibrationPage::setSamplePump500ml(const QString &value) {
     if (m_samplePump500ml == value) return;
@@ -58,10 +70,10 @@ void CalibrationPage::setSamplePipePulse(const QString &value) {
 }
 
 // 留样泵
-QString CalibrationPage::retainPump10ml() const { return m_retainPump10ml; }
-void CalibrationPage::setRetainPump10ml(const QString &value) {
-    if (m_retainPump10ml == value) return;
-    m_retainPump10ml = value; emit retainPump10mlChanged();
+QString CalibrationPage::retainPump200ml() const { return m_retainPump200ml; }
+void CalibrationPage::setRetainPump200ml(const QString &value) {
+    if (m_retainPump200ml == value) return;
+    m_retainPump200ml = value; emit retainPump200mlChanged();
 }
 
 QString CalibrationPage::retainPump500ml() const { return m_retainPump500ml; }
@@ -89,17 +101,19 @@ void CalibrationPage::setFridgeCalibTemp(const QString &value) {
     m_fridgeCalibTemp = value; emit fridgeCalibTempChanged();
 }
 
-// ====================== 加载 ======================
+// 加载全部
 void CalibrationPage::loadAllConfig()
 {
     setPump1Factor(m_settings->value("Calib/Pump1Factor", "1.000").toString());
     setPump2Factor(m_settings->value("Calib/Pump2Factor", "1.000").toString());
     setPump3Factor(m_settings->value("Calib/Pump3Factor", "1.000").toString());
+    setPump4Factor(m_settings->value("Calib/Pump4Factor", "1.000").toString());
 
+    setSamplePump200ml(m_settings->value("Calib/SamplePump200ml", "0").toString());
     setSamplePump500ml(m_settings->value("Calib/SamplePump500ml", "0").toString());
     setSamplePipePulse(m_settings->value("Calib/SamplePipePulse", "0").toString());
 
-    setRetainPump10ml(m_settings->value("Calib/RetainPump10ml", "0").toString());
+    setRetainPump200ml(m_settings->value("Calib/RetainPump200ml", "0").toString());
     setRetainPump500ml(m_settings->value("Calib/RetainPump500ml", "0").toString());
     setRetainPipePulse(m_settings->value("Calib/RetainPipePulse", "0").toString());
 
@@ -107,22 +121,60 @@ void CalibrationPage::loadAllConfig()
     setFridgeCalibTemp(m_settings->value("Calib/FridgeCalibTemp", "0.0").toString());
 }
 
-// ====================== 保存 ======================
-void CalibrationPage::saveAllConfig()
-{
+// ====================== 每个按钮独立保存（只存当前项） ======================
+
+void CalibrationPage::savePump1Factor() {
     m_settings->setValue("Calib/Pump1Factor", m_pump1Factor);
+    m_settings->sync();
+}
+
+void CalibrationPage::savePump2Factor() {
     m_settings->setValue("Calib/Pump2Factor", m_pump2Factor);
+    m_settings->sync();
+}
+
+void CalibrationPage::savePump3Factor() {
     m_settings->setValue("Calib/Pump3Factor", m_pump3Factor);
+    m_settings->sync();
+}
 
-    m_settings->setValue("Calib/SamplePump500ml", m_samplePump500ml);
+void CalibrationPage::savePump4Factor() {
+    m_settings->setValue("Calib/Pump4Factor", m_pump4Factor);
+    m_settings->sync();
+}
+
+void CalibrationPage::saveSamplePipePulse() {
     m_settings->setValue("Calib/SamplePipePulse", m_samplePipePulse);
+    m_settings->sync();
+}
 
-    m_settings->setValue("Calib/RetainPump10ml", m_retainPump10ml);
-    m_settings->setValue("Calib/RetainPump500ml", m_retainPump500ml);
+void CalibrationPage::saveSamplePump200ml() {
+    m_settings->setValue("Calib/SamplePump200ml", m_samplePump200ml);
+    m_settings->sync();
+}
+
+void CalibrationPage::saveSamplePump500ml() {
+    m_settings->setValue("Calib/SamplePump500ml", m_samplePump500ml);
+    m_settings->sync();
+}
+
+void CalibrationPage::saveRetainPipePulse() {
     m_settings->setValue("Calib/RetainPipePulse", m_retainPipePulse);
+    m_settings->sync();
+}
 
+void CalibrationPage::saveRetainPump200ml() {
+    m_settings->setValue("Calib/RetainPump200ml", m_retainPump200ml);
+    m_settings->sync();
+}
+
+void CalibrationPage::saveRetainPump500ml() {
+    m_settings->setValue("Calib/RetainPump500ml", m_retainPump500ml);
+    m_settings->sync();
+}
+
+void CalibrationPage::saveFridgeCalib() {
     m_settings->setValue("Calib/FridgeRealTemp", m_fridgeRealTemp);
     m_settings->setValue("Calib/FridgeCalibTemp", m_fridgeCalibTemp);
-
     m_settings->sync();
 }

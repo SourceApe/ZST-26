@@ -34,6 +34,7 @@ void ChemicalAddPage::setRatioList(const QVariantList& v) {
 int ChemicalAddPage::globalChannel1() const { return m_ch1; }
 int ChemicalAddPage::globalChannel2() const { return m_ch2; }
 int ChemicalAddPage::globalChannel3() const { return m_ch3; }
+int ChemicalAddPage::globalChannel4() const { return m_ch4; }
 
 void ChemicalAddPage::setGlobalChannel1(int v) {
     m_ch1 = v;
@@ -50,6 +51,11 @@ void ChemicalAddPage::setGlobalChannel3(int v) {
     emit globalChannel3Changed();
 }
 
+void ChemicalAddPage::setGlobalChannel4(int v) {
+    m_ch4 = v;
+    emit globalChannel4Changed();
+}
+
 // ================== 加载配置（强制从文件刷新，保证切换页面恢复） ==================
 void ChemicalAddPage::loadAllConfig()
 {
@@ -59,6 +65,7 @@ void ChemicalAddPage::loadAllConfig()
     m_ch1 = m_settings->value("ChemicalAdd/Ch1", 0).toInt();
     m_ch2 = m_settings->value("ChemicalAdd/Ch2", 0).toInt();
     m_ch3 = m_settings->value("ChemicalAdd/Ch3", 0).toInt();
+    m_ch4 = m_settings->value("ChemicalAdd/Ch4", 0).toInt();
 
     m_channels.clear();
     m_ratios.clear();
@@ -75,6 +82,7 @@ void ChemicalAddPage::saveAllConfig()
     m_settings->setValue("ChemicalAdd/Ch1", m_ch1);
     m_settings->setValue("ChemicalAdd/Ch2", m_ch2);
     m_settings->setValue("ChemicalAdd/Ch3", m_ch3);
+    m_settings->setValue("ChemicalAdd/Ch4", m_ch4);
 
     for(int i = 0; i < 24; i++) {
         m_settings->setValue(QString("ChemicalAdd/Channel%1").arg(i), m_channels.at(i));

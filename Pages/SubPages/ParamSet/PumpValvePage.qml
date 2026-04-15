@@ -12,9 +12,8 @@ Page {
 
     property int currentPage: 0
 
-    // ====================== 保存配置 ======================
-    function saveAllToConfig() {
-        // 采样参数
+    // ====================== 只保存 第一页 ======================
+    function savePage1ToConfig() {
         PumpValvePageConfig.sampleCleanTimes = cleanTimesInput.inputText;
         PumpValvePageConfig.sampleCleanVol = cleanVolInput.inputText;
         PumpValvePageConfig.sampleStirTime = stirTimeInput.inputText;
@@ -23,12 +22,10 @@ Page {
         PumpValvePageConfig.sampleTimeout = sampleTimeoutInput.inputText;
         PumpValvePageConfig.extPumpPreTime = extPumpInput.inputText;
 
-        // 留样参数
         PumpValvePageConfig.retainTimeout = retainTimeoutInput.inputText;
         PumpValvePageConfig.retainPipeEmptyTime = retainPipeEmptyInput.inputText;
         PumpValvePageConfig.tableRotateTimeout = tableRotateInput.inputText;
 
-        // 时间校准
         PumpValvePageConfig.calibYear = yearInput.inputText;
         PumpValvePageConfig.calibMonth = monthInput.inputText;
         PumpValvePageConfig.calibDay = dayInput.inputText;
@@ -36,7 +33,12 @@ Page {
         PumpValvePageConfig.calibMinute = minuteInput.inputText;
         PumpValvePageConfig.calibSecond = secondInput.inputText;
 
-        // 泵 & 流量计
+        PumpValvePageConfig.saveAllConfig();
+        console.log("✅ 第1页参数已保存");
+    }
+
+    // ====================== 只保存 第二页 ======================
+    function savePage2ToConfig() {
         PumpValvePageConfig.samplePumpSpeed = samplePumpInput.inputText;
         PumpValvePageConfig.retainPumpSpeed = retainPumpInput.inputText;
         PumpValvePageConfig.sampleBottleVol = sampleBottleVolInput.inputText;
@@ -46,10 +48,10 @@ Page {
         PumpValvePageConfig.pulseFlowMeter = pulseFlowInput.inputText;
 
         PumpValvePageConfig.saveAllConfig();
-        console.log("✅ 泵阀参数已保存");
+        console.log("✅ 第2页参数已保存");
     }
 
-    // ====================== 加载配置 ======================
+    // ====================== 加载配置（不变） ======================
     function loadConfigToUI() {
         cleanTimesInput.inputText = PumpValvePageConfig.sampleCleanTimes;
         cleanVolInput.inputText = PumpValvePageConfig.sampleCleanVol;
@@ -158,7 +160,6 @@ Page {
                 CustomButton {
                     Layout.rightMargin: 20
                     buttonText: "校准"
-                    fontSize: 22
                 }
             }
 
@@ -167,10 +168,14 @@ Page {
                 Layout.bottomMargin: 10
                 Item {Layout.fillWidth: true }
                 CustomButton {
-                    Layout.rightMargin: 20
                     buttonText: "下一页"
-                    fontSize: 22
                     onClicked: currentPage = 1
+                }
+                Item {Layout.fillWidth: true }
+                CustomButton {
+                    Layout.rightMargin: 20
+                    buttonText: "保存"
+                    onClicked: savePage1ToConfig()  // 👈 只保存第一页
                 }
             }
         }
@@ -204,16 +209,14 @@ Page {
                 Layout.bottomMargin: 10
                 Item { Layout.fillWidth: true }
                 CustomButton {
-                    buttonText: "保存"
-                    fontSize: 22
-                    onClicked: saveAllToConfig()
+                    buttonText: "上一页"
+                    onClicked: currentPage = 0
                 }
                 Item { Layout.fillWidth: true }
                 CustomButton {
                     Layout.rightMargin: 20
-                    buttonText: "上一页"
-                    fontSize: 22
-                    onClicked: currentPage = 0
+                    buttonText: "保存"
+                    onClicked: savePage2ToConfig()  // 👈 只保存第二页
                 }
             }
         }

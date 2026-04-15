@@ -15,6 +15,7 @@ class ChemicalAddPage : public QObject
     Q_PROPERTY(int globalChannel1 READ globalChannel1 WRITE setGlobalChannel1 NOTIFY globalChannel1Changed)
     Q_PROPERTY(int globalChannel2 READ globalChannel2 WRITE setGlobalChannel2 NOTIFY globalChannel2Changed)
     Q_PROPERTY(int globalChannel3 READ globalChannel3 WRITE setGlobalChannel3 NOTIFY globalChannel3Changed)
+    Q_PROPERTY(int globalChannel4 READ globalChannel4 WRITE setGlobalChannel4 NOTIFY globalChannel4Changed)
 
 public:
     QVariantList channelList() const;
@@ -22,12 +23,14 @@ public:
     int globalChannel1() const;
     int globalChannel2() const;
     int globalChannel3() const;
+    int globalChannel4() const;
 
     void setChannelList(const QVariantList& v);
     void setRatioList(const QVariantList& v);
     void setGlobalChannel1(int v);
     void setGlobalChannel2(int v);
     void setGlobalChannel3(int v);
+    void setGlobalChannel4(int v);
 
 signals:
     void channelListChanged();
@@ -35,6 +38,7 @@ signals:
     void globalChannel1Changed();
     void globalChannel2Changed();
     void globalChannel3Changed();
+    void globalChannel4Changed();
 
 public:
     static ChemicalAddPage* instance();
@@ -47,7 +51,7 @@ private:
 
     QVariantList m_channels;
     QVariantList m_ratios;
-    int m_ch1, m_ch2, m_ch3;
+    int m_ch1, m_ch2, m_ch3, m_ch4;
 };
 
 #endif
