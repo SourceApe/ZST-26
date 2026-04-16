@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<MaintainPage>("com.maintainpage.config",1,0,"MaintainPageConfig", registerSingleton<MaintainPage>);
     qmlRegisterSingletonType<CalibrationPage>("com.calibrationpage.config",1,0,"CalibrationPageConfig", registerSingleton<CalibrationPage>);
 
+    qmlRegisterSingletonType<Application>("com.application.config",1,0,"ApplicationConfig", registerSingleton<Application>);
     Application::instance()->init();
 
     QQmlApplicationEngine engine;

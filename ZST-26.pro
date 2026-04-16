@@ -16,12 +16,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Core/Application.cpp \
     Core/WorkModeManager.cpp \
-    Core/WorkModes/FixedSampleMode.cpp \
-    Core/WorkModes/ModeBase.cpp \
-        Devices/BuzzerCtrl.cpp \
+    Core/WorkModes/Sample/FixedSampleMode.cpp \
+    Core/WorkModes/Sample/SampleBase.cpp \
+    Devices/BuzzerCtrl.cpp \
     Devices/Modbus/ModbusRtuMaster.cpp \
     Devices/SerialPort.cpp \
-        MainPage.cpp \
+    MainPage.cpp \
     Pages/SubPages/Debug/CalibrationPage.cpp \
     Pages/SubPages/ParamSet/ChemicalAddPage.cpp \
     Pages/SubPages/ParamSet/CommunicationPage.cpp \
@@ -29,9 +29,9 @@ SOURCES += \
     Pages/SubPages/ParamSet/MaintainPage.cpp \
     Pages/SubPages/ParamSet/PumpValvePage.cpp \
     Pages/SubPages/WorkMode/AnalogChannelPage.cpp \
-        Pages/SubPages/WorkMode/HourSampleSupplyPage.cpp \
-        Pages/SubPages/WorkMode/ModePage.cpp \
-        main.cpp \
+    Pages/SubPages/WorkMode/HourSampleSupplyPage.cpp \
+    Pages/SubPages/WorkMode/ModePage.cpp \
+    main.cpp \
 
 RESOURCES += qml.qrc
 
@@ -49,8 +49,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     Core/Application.h \
     Core/WorkModeManager.h \
-    Core/WorkModes/FixedSampleMode.h \
-    Core/WorkModes/ModeBase.h \
+    Core/WorkModes/Sample/FixedSampleMode.h \
+    Core/WorkModes/Sample/SampleBase.h \
     Devices/BuzzerCtrl.h \
     Devices/Modbus/ModbusRtuMaster.h \
     Devices/SerialPort.h \

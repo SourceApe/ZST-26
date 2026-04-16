@@ -28,6 +28,11 @@ bool ModbusRtuMaster::initPort(int portIndex, const QString& portName,
     c->setConnectionParameter(QModbusDevice::SerialParityParameter, parity);
     c->setConnectionParameter(QModbusDevice::SerialStopBitsParameter, stopBits);
 
+    if(c->connectDevice()){
+        qDebug() << "Modbus"<<portIndex<<"初始化成功："<<portName;
+    }else{
+        qDebug() << "Modbus"<<portIndex<<"初始化失败："<<c->errorString();
+    }
     return c->connectDevice();
 }
 

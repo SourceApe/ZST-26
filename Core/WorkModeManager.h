@@ -2,17 +2,8 @@
 #define WORKMODEMANAGER_H
 
 #include <QObject>
-#include "WorkModes/ModeBase.h"
-#include "WorkModes/FixedSampleMode.h"
-
-enum WorkMode {
-    None = 0,
-    FixedSample,  // 定量采样
-    TimeRatio,
-    FlowRatio,
-    FlowTrack,
-    ExtTrigger
-};
+#include "WorkModes/Sample/SampleBase.h"
+#include "WorkModes/Sample/FixedSampleMode.h"
 
 class WorkModeManager : public QObject
 {
@@ -20,22 +11,15 @@ class WorkModeManager : public QObject
 public:
     static WorkModeManager* instance();
 
-    Q_INVOKABLE bool switchMode(int modeIndex);
-    Q_INVOKABLE bool startMode();
-    Q_INVOKABLE void stopMode();
-    Q_INVOKABLE int currentMode() const;
+    Q_INVOKABLE void start();
+    Q_INVOKABLE void stop();
 
 signals:
-    void modeChanged(int mode);
-    void statusUpdate(QString msg);
-    void runError(QString err);
+    void stopped();
 
 private:
     explicit WorkModeManager(QObject *parent = nullptr);
-    ~WorkModeManager();
-
-    ModeBase* m_currentMode;
-    WorkMode m_mode;
+    SampleBase *m_currentMode;
 };
 
 #endif // WORKMODEMANAGER_H

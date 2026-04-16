@@ -2,6 +2,7 @@
 #define APPLICATION_H
 
 #include <QObject>
+#include <QTimer>
 #include "WorkModeManager.h"
 
 class Application : public QObject
@@ -10,16 +11,27 @@ class Application : public QObject
 public:
     static Application* instance();
 
-    Q_INVOKABLE bool init();
-    Q_INVOKABLE void shutdown();
+    // 设备全局初始化（开机跑一次）
+    Q_INVOKABLE void init();
 
-    Q_INVOKABLE WorkModeManager* workModeManager() const;
+    // 给 QML 调用：启动 / 停止
+    Q_INVOKABLE void startRun();
+    Q_INVOKABLE void stopRun();
+    Q_INVOKABLE void startSchedule();// 定时启动（开启检查）
+    Q_INVOKABLE void stopSchedule(); // 取消定时
+
+    // 获取当前是否运行
+    Q_INVOKABLE bool isRunning() const;
+
+private slots:
+    void checkTime();
 
 private:
     explicit Application(QObject *parent = nullptr);
-    ~Application();
 
-    WorkModeManager* m_workModeManager;
+    QTimer m_scheduleTimer;
+    // 全局状态
+    bool m_isRunning;
 };
 
-#endif // Application_H
+#endif

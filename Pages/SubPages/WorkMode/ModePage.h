@@ -166,7 +166,7 @@ public:
     Q_INVOKABLE void saveAllConfig();
 
 private:
-    explicit ModePage(); // 单例禁止传 parent
+    explicit ModePage();
     ~ModePage();
 
     QSettings* m_settings;

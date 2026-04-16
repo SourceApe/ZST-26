@@ -1,66 +1,46 @@
 #include "WorkModeManager.h"
+#include "../Pages/SubPages/WorkMode/ModePage.h"
+#include "WorkModes/Sample/FixedSampleMode.h"
+#include <QDebug>
 
 WorkModeManager::WorkModeManager(QObject *parent)
-    : QObject(parent),
-      m_currentMode(nullptr),
-      m_mode(None)
+    : QObject{parent}
+    , m_currentMode(nullptr)
 {
-}
-
-WorkModeManager::~WorkModeManager()
-{
-    // 停止当前模式
-    if (m_currentMode) {
-        m_currentMode->stop();
-        m_currentMode->deleteLater();
-        m_currentMode = nullptr;
-    }
 }
 
 WorkModeManager* WorkModeManager::instance()
 {
-    static WorkModeManager s_instance;
-    return &s_instance;
+    static WorkModeManager s_ins;
+    return &s_ins;
 }
 
-bool WorkModeManager::switchMode(int modeIndex)
+void WorkModeManager::start()
+{
+    stop();
+
+    int mode = ModePage::instance()->sampleModeIndex();
+
+    switch(mode){
+    case 0:
+        m_currentMode = new FixedSampleMode(this);
+        break;
+    default:
+        break;
+    }
+
+    if (m_currentMode) {
+        connect(m_currentMode, &SampleBase::finished, this, &WorkModeManager::stop);
+        m_currentMode->start();
+    }
+}
+
+void WorkModeManager::stop()
 {
     if (m_currentMode) {
         m_currentMode->stop();
         m_currentMode->deleteLater();
-    }
-
-    m_mode = (WorkMode)modeIndex;
-
-    switch (m_mode) {
-    case FixedSample:
-        m_currentMode = new FixedSampleMode(this);
-        break;
-    default:
         m_currentMode = nullptr;
-        return false;
+        emit stopped();
     }
-
-    connect(m_currentMode, &ModeBase::statusUpdate, this, &WorkModeManager::statusUpdate);
-    connect(m_currentMode, &ModeBase::runError, this, &WorkModeManager::runError);
-
-    emit modeChanged(m_mode);
-    return true;
-}
-
-bool WorkModeManager::startMode()
-{
-    if (!m_currentMode) return false;
-    return m_currentMode->start();
-}
-
-void WorkModeManager::stopMode()
-{
-    if (m_currentMode)
-        m_currentMode->stop();
-}
-
-int WorkModeManager::currentMode() const
-{
-    return (int)m_mode;
 }

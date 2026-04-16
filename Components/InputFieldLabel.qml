@@ -12,9 +12,10 @@ RowLayout {
     property int inputHeight: 35      // 输入框默认高度
     property int fontSize: 20          // 默认字体大小
 
+    property alias inputText: inputField.text
+
     TextField {
         id: inputField
-        text: inputText
         Layout.preferredWidth: inputWidth
         Layout.preferredHeight: inputHeight
         font.pixelSize: fontSize

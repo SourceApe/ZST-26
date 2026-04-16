@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import "../../../Components"
 import com.modepage.config 1.0
+import com.application.config 1.0
 
 Page {
     width: parent.width
@@ -407,9 +408,17 @@ Page {
             Item { Layout.fillWidth: true }
             CustomButton {
                 buttonText: "立即启动"
+                onClicked: {
+                    loadConfigToUI();
+                    ApplicationConfig.startRun();
+                }
             }
             CustomButton {
                 buttonText: "定时启动"
+                onClicked: {
+                    loadConfigToUI();
+                    ApplicationConfig.startSchedule();
+                }
             }
             Item { Layout.fillWidth: true }
             CustomButton {
