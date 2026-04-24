@@ -23,6 +23,7 @@ public:
     void updateCurrentTime();
 
     static MainPage* instance();
+    Q_INVOKABLE void setSystemDateTime(int year, int month, int day, int hour, int minute, int second);
     Q_INVOKABLE bool checkOperatorPwd(const QString &pwd);
     Q_INVOKABLE bool checkAdminPwd(const QString &pwd);
 

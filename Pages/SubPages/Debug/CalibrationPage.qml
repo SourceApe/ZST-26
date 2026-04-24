@@ -34,7 +34,6 @@ Page {
 
     Component.onCompleted: {
         loadConfigToUI()
-        console.log("✅ 校准配置已加载")
     }
 
     onVisibleChanged: {
@@ -95,7 +94,6 @@ Page {
                     onClicked: {
                         CalibrationPageConfig.pump1Factor = pump1FactorInput.inputText
                         CalibrationPageConfig.savePump1Factor()
-                        console.log("✅ 加药泵1系数已保存")
                     }
                 }
             }
@@ -148,7 +146,6 @@ Page {
                     onClicked: {
                         CalibrationPageConfig.pump2Factor = pump2FactorInput.inputText
                         CalibrationPageConfig.savePump2Factor()
-                        console.log("✅ 加药泵2系数已保存")
                     }
                 }
             }
@@ -201,7 +198,6 @@ Page {
                     onClicked: {
                         CalibrationPageConfig.pump3Factor = pump3FactorInput.inputText
                         CalibrationPageConfig.savePump3Factor()
-                        console.log("✅ 加药泵3系数已保存")
                     }
                 }
             }
@@ -254,7 +250,6 @@ Page {
                     onClicked: {
                         CalibrationPageConfig.pump4Factor = pump4FactorInput.inputText
                         CalibrationPageConfig.savePump4Factor()
-                        console.log("✅ 加药泵4系数已保存")
                     }
                 }
             }
@@ -312,7 +307,6 @@ Page {
                         CalibrationPageConfig.fridgeRealTemp = fridgeRealInput.inputText
                         CalibrationPageConfig.fridgeCalibTemp = fridgeCalibInput.inputText
                         CalibrationPageConfig.saveFridgeCalib()
-                        console.log("✅ 冰箱温度校准已保存")
                     }
                 }
                 CustomButton {
@@ -386,7 +380,6 @@ Page {
                     onClicked: {
                         CalibrationPageConfig.samplePipePulse = samplePipePulseInput.inputText
                         CalibrationPageConfig.saveSamplePipePulse()
-                        console.log("✅ 采样进水管路脉冲已保存")
                     }
                 }
             }
@@ -430,7 +423,6 @@ Page {
                         onClicked: {
                             CalibrationPageConfig.samplePump200ml = samplePump200mlInput.inputText
                             CalibrationPageConfig.saveSamplePump200ml()
-                            console.log("✅ 采样泵 200mL 校准已保存")
                         }
                     }
                 }
@@ -444,7 +436,6 @@ Page {
                         onClicked: {
                             CalibrationPageConfig.samplePump500ml = samplePump500mlInput.inputText
                             CalibrationPageConfig.saveSamplePump500ml()
-                            console.log("✅ 采样泵500mL已保存")
                         }
                     }
                 }
@@ -488,7 +479,6 @@ Page {
                     onClicked: {
                         CalibrationPageConfig.retainPipePulse = retainPipePulseInput.inputText
                         CalibrationPageConfig.saveRetainPipePulse()
-                        console.log("✅ 留样进水管路脉冲已保存")
                     }
                 }
             }
@@ -532,7 +522,6 @@ Page {
                         onClicked: {
                             CalibrationPageConfig.retainPump200ml = retainPump200mlInput.inputText
                             CalibrationPageConfig.saveRetainPump200ml()
-                            console.log("✅ 留样泵200mL已保存")
                         }
                     }
                 }
@@ -546,7 +535,6 @@ Page {
                         onClicked: {
                             CalibrationPageConfig.retainPump500ml = retainPump500mlInput.inputText
                             CalibrationPageConfig.saveRetainPump500ml()
-                            console.log("✅ 留样泵500mL已保存")
                         }
                     }
                 }

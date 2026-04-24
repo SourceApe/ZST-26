@@ -1,6 +1,7 @@
 #ifndef FIXEDSAMPLEMODE_H
 #define FIXEDSAMPLEMODE_H
 
+#include <QTimer>
 #include "SampleBase.h"
 
 class FixedSampleMode : public SampleBase
@@ -16,11 +17,21 @@ private slots:
     void runStep();
 
 private:
-    double m_sampleVol;
-    int m_retainBottle;
-    double m_retainVol;
-
+    QTimer m_timer;
     int m_step = 0;
+    int m_delayMs;
+
+    int m_sampleBucketCleanCnt;
+    int m_sampleBucketCleanVol;
+    int m_stirTime;
+    int m_emptyTime;
+    int m_pipeEmptyTime;
+    int m_sampleTimeout;
+    int m_extPumpPreTime;
+    int m_samplePumpSpeed;
+    int m_sampleBucketVol;
+
+    int m_currentLoop = 0;
 };
 
 #endif // FIXEDSAMPLEMODE_H

@@ -1,4 +1,5 @@
 #include "MainPage.h"
+#include <QProcess>
 
 // ✅ 构造函数：无参数，无 parent
 MainPage::MainPage()
@@ -45,6 +46,15 @@ QString MainPage::currentTime() const {
 void MainPage::updateCurrentTime() {
     m_currentTime = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
     emit currentTimeChanged();
+}
+
+void MainPage::setSystemDateTime(int year, int month, int day, int hour, int minute, int second)
+{
+    QDateTime dt(QDate(year, month, day), QTime(hour, minute, second));
+
+    // Linux 设置时间命令
+    QProcess::execute("date", {"-s", dt.toString("yyyy-MM-dd HH:mm:ss")});
+    QProcess::execute("hwclock", {"-u", "-w"});
 }
 
 MainPage* MainPage::instance()

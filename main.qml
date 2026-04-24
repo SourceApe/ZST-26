@@ -132,9 +132,24 @@ ApplicationWindow {
             Item { Layout.fillWidth: true }
             Text { text: "冰箱温度: "; font.pixelSize: 20 }
             Item { Layout.fillWidth: true }
-            Text { text: MainPageConfig.currentTime; Layout.rightMargin: 20; font.pixelSize: 20 }
+            Text {
+                id: timeLabel
+                text: MainPageConfig.currentTime;
+                Layout.rightMargin: 20;
+                font.pixelSize: 20
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: mainWindow.beep()
+                    onClicked: {
+                        globalPopUps.timeSetVisible = true
+                    }
+                }
+            }
+
+
         }
     }
+
     // 全局弹窗
     PopUps {
         id: globalPopUps

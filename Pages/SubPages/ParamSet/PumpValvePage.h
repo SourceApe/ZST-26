@@ -10,8 +10,8 @@ class PumpValvePage : public QObject
     Q_OBJECT
 
     // 采样参数
-    Q_PROPERTY(QString sampleCleanTimes READ sampleCleanTimes WRITE setSampleCleanTimes NOTIFY sampleCleanTimesChanged)
-    Q_PROPERTY(QString sampleCleanVol READ sampleCleanVol WRITE setSampleCleanVol NOTIFY sampleCleanVolChanged)
+    Q_PROPERTY(QString sampleBucketCleanCnt READ sampleBucketCleanCnt WRITE setSampleBucketCleanCnt NOTIFY sampleBucketCleanCntChanged)
+    Q_PROPERTY(QString sampleBucketCleanVol READ sampleBucketCleanVol WRITE setSampleBucketCleanVol NOTIFY sampleBucketCleanVolChanged)
     Q_PROPERTY(QString sampleStirTime READ sampleStirTime WRITE setSampleStirTime NOTIFY sampleStirTimeChanged)
     Q_PROPERTY(QString sampleEmptyTime READ sampleEmptyTime WRITE setSampleEmptyTime NOTIFY sampleEmptyTimeChanged)
     Q_PROPERTY(QString samplePipeEmptyTime READ samplePipeEmptyTime WRITE setSamplePipeEmptyTime NOTIFY samplePipeEmptyTimeChanged)
@@ -34,17 +34,17 @@ class PumpValvePage : public QObject
     // 泵 & 阀 & 流量计
     Q_PROPERTY(QString samplePumpSpeed READ samplePumpSpeed WRITE setSamplePumpSpeed NOTIFY samplePumpSpeedChanged)
     Q_PROPERTY(QString retainPumpSpeed READ retainPumpSpeed WRITE setRetainPumpSpeed NOTIFY retainPumpSpeedChanged)
-    Q_PROPERTY(QString sampleBottleVol READ sampleBottleVol WRITE setSampleBottleVol NOTIFY sampleBottleVolChanged)
+    Q_PROPERTY(QString sampleBucketVol READ sampleBucketVol WRITE setSampleBucketVol NOTIFY sampleBucketVolChanged)
     Q_PROPERTY(QString retainBottleVol READ retainBottleVol WRITE setRetainBottleVol NOTIFY retainBottleVolChanged)
     Q_PROPERTY(QString retainBottleCount READ retainBottleCount WRITE setRetainBottleCount NOTIFY retainBottleCountChanged)
     Q_PROPERTY(QString flowMeterRange READ flowMeterRange WRITE setFlowMeterRange NOTIFY flowMeterRangeChanged)
     Q_PROPERTY(QString pulseFlowMeter READ pulseFlowMeter WRITE setPulseFlowMeter NOTIFY pulseFlowMeterChanged)
 
 public:
-    QString sampleCleanTimes() const;
-    void setSampleCleanTimes(const QString& value);
-    QString sampleCleanVol() const;
-    void setSampleCleanVol(const QString& value);
+    QString sampleBucketCleanCnt() const;
+    void setSampleBucketCleanCnt(const QString& value);
+    QString sampleBucketCleanVol() const;
+    void setSampleBucketCleanVol(const QString& value);
     QString sampleStirTime() const;
     void setSampleStirTime(const QString& value);
     QString sampleEmptyTime() const;
@@ -80,8 +80,8 @@ public:
     void setSamplePumpSpeed(const QString& value);
     QString retainPumpSpeed() const;
     void setRetainPumpSpeed(const QString& value);
-    QString sampleBottleVol() const;
-    void setSampleBottleVol(const QString& value);
+    QString sampleBucketVol() const;
+    void setSampleBucketVol(const QString& value);
     QString retainBottleVol() const;
     void setRetainBottleVol(const QString& value);
     QString retainBottleCount() const;
@@ -92,8 +92,8 @@ public:
     void setPulseFlowMeter(const QString& value);
 
 signals:
-    void sampleCleanTimesChanged();
-    void sampleCleanVolChanged();
+    void sampleBucketCleanCntChanged();
+    void sampleBucketCleanVolChanged();
     void sampleStirTimeChanged();
     void sampleEmptyTimeChanged();
     void samplePipeEmptyTimeChanged();
@@ -113,7 +113,7 @@ signals:
 
     void samplePumpSpeedChanged();
     void retainPumpSpeedChanged();
-    void sampleBottleVolChanged();
+    void sampleBucketVolChanged();
     void retainBottleVolChanged();
     void retainBottleCountChanged();
     void flowMeterRangeChanged();
@@ -130,8 +130,8 @@ private:
 
     QSettings* m_settings;
 
-    QString m_sampleCleanTimes;
-    QString m_sampleCleanVol;
+    QString m_sampleBucketCleanCnt;
+    QString m_sampleBucketCleanVol;
     QString m_sampleStirTime;
     QString m_sampleEmptyTime;
     QString m_samplePipeEmptyTime;
@@ -151,7 +151,7 @@ private:
 
     QString m_samplePumpSpeed;
     QString m_retainPumpSpeed;
-    QString m_sampleBottleVol;
+    QString m_sampleBucketVol;
     QString m_retainBottleVol;
     QString m_retainBottleCount;
     QString m_flowMeterRange;

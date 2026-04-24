@@ -26,15 +26,15 @@ PumpValvePage* PumpValvePage::instance()
 }
 
 // 采样参数
-QString PumpValvePage::sampleCleanTimes() const { return m_sampleCleanTimes; }
-void PumpValvePage::setSampleCleanTimes(const QString &value) {
-    if (m_sampleCleanTimes == value) return;
-    m_sampleCleanTimes = value; emit sampleCleanTimesChanged();
+QString PumpValvePage::sampleBucketCleanCnt() const { return m_sampleBucketCleanCnt; }
+void PumpValvePage::setSampleBucketCleanCnt(const QString &value) {
+    if (m_sampleBucketCleanCnt == value) return;
+    m_sampleBucketCleanCnt = value; emit sampleBucketCleanCntChanged();
 }
-QString PumpValvePage::sampleCleanVol() const { return m_sampleCleanVol; }
-void PumpValvePage::setSampleCleanVol(const QString &value) {
-    if (m_sampleCleanVol == value) return;
-    m_sampleCleanVol = value; emit sampleCleanVolChanged();
+QString PumpValvePage::sampleBucketCleanVol() const { return m_sampleBucketCleanVol; }
+void PumpValvePage::setSampleBucketCleanVol(const QString &value) {
+    if (m_sampleBucketCleanVol == value) return;
+    m_sampleBucketCleanVol = value; emit sampleBucketCleanVolChanged();
 }
 QString PumpValvePage::sampleStirTime() const { return m_sampleStirTime; }
 void PumpValvePage::setSampleStirTime(const QString &value) {
@@ -122,10 +122,10 @@ void PumpValvePage::setRetainPumpSpeed(const QString &value) {
     if (m_retainPumpSpeed == value) return;
     m_retainPumpSpeed = value; emit retainPumpSpeedChanged();
 }
-QString PumpValvePage::sampleBottleVol() const { return m_sampleBottleVol; }
-void PumpValvePage::setSampleBottleVol(const QString &value) {
-    if (m_sampleBottleVol == value) return;
-    m_sampleBottleVol = value; emit sampleBottleVolChanged();
+QString PumpValvePage::sampleBucketVol() const { return m_sampleBucketVol; }
+void PumpValvePage::setSampleBucketVol(const QString &value) {
+    if (m_sampleBucketVol == value) return;
+    m_sampleBucketVol = value; emit sampleBucketVolChanged();
 }
 QString PumpValvePage::retainBottleVol() const { return m_retainBottleVol; }
 void PumpValvePage::setRetainBottleVol(const QString &value) {
@@ -150,8 +150,8 @@ void PumpValvePage::setPulseFlowMeter(const QString &value) {
 
 void PumpValvePage::loadAllConfig()
 {
-    setSampleCleanTimes(m_settings->value("PumpValve/SampleCleanTimes", "2").toString());
-    setSampleCleanVol(m_settings->value("PumpValve/SampleCleanVol", "500").toString());
+    setSampleBucketCleanCnt(m_settings->value("PumpValve/SampleBucketCleanCnt", "2").toString());
+    setSampleBucketCleanVol(m_settings->value("PumpValve/SampleBucketCleanVol", "500").toString());
     setSampleStirTime(m_settings->value("PumpValve/SampleStirTime", "10").toString());
     setSampleEmptyTime(m_settings->value("PumpValve/SampleEmptyTime", "10").toString());
     setSamplePipeEmptyTime(m_settings->value("PumpValve/SamplePipeEmptyTime", "5").toString());
@@ -171,8 +171,8 @@ void PumpValvePage::loadAllConfig()
 
     setSamplePumpSpeed(m_settings->value("PumpValve/SamplePumpSpeed", "60").toString());
     setRetainPumpSpeed(m_settings->value("PumpValve/RetainPumpSpeed", "60").toString());
-    setSampleBottleVol(m_settings->value("PumpValve/SampleBottleVol", "1000").toString());
-    setRetainBottleVol(m_settings->value("PumpValve/RetainBottleVol", "500").toString());
+    setSampleBucketVol(m_settings->value("PumpValve/SampleBucketVol", "1000").toString());
+    setRetainBottleVol(m_settings->value("PumpValve/RetainBottletVol", "500").toString());
     setRetainBottleCount(m_settings->value("PumpValve/RetainBottleCount", "24").toString());
     setFlowMeterRange(m_settings->value("PumpValve/FlowMeterRange", "50").toString());
     setPulseFlowMeter(m_settings->value("PumpValve/PulseFlowMeter", "0.01").toString());
@@ -180,8 +180,8 @@ void PumpValvePage::loadAllConfig()
 
 void PumpValvePage::saveAllConfig()
 {
-    m_settings->setValue("PumpValve/SampleCleanTimes", m_sampleCleanTimes);
-    m_settings->setValue("PumpValve/SampleCleanVol", m_sampleCleanVol);
+    m_settings->setValue("PumpValve/SampleBucketCleanCnt", m_sampleBucketCleanCnt);
+    m_settings->setValue("PumpValve/SampleBucketCleanVol", m_sampleBucketCleanVol);
     m_settings->setValue("PumpValve/SampleStirTime", m_sampleStirTime);
     m_settings->setValue("PumpValve/SampleEmptyTime", m_sampleEmptyTime);
     m_settings->setValue("PumpValve/SamplePipeEmptyTime", m_samplePipeEmptyTime);
@@ -201,7 +201,7 @@ void PumpValvePage::saveAllConfig()
 
     m_settings->setValue("PumpValve/SamplePumpSpeed", m_samplePumpSpeed);
     m_settings->setValue("PumpValve/RetainPumpSpeed", m_retainPumpSpeed);
-    m_settings->setValue("PumpValve/SampleBottleVol", m_sampleBottleVol);
+    m_settings->setValue("PumpValve/SampleBucketVol", m_sampleBucketVol);
     m_settings->setValue("PumpValve/RetainBottleVol", m_retainBottleVol);
     m_settings->setValue("PumpValve/RetainBottleCount", m_retainBottleCount);
     m_settings->setValue("PumpValve/FlowMeterRange", m_flowMeterRange);

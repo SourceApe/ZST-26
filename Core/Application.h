@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QTimer>
-#include "WorkModeManager.h"
 
 class Application : public QObject
 {
@@ -25,6 +24,8 @@ public:
 
 private slots:
     void checkTime();
+
+    void onFlowFinished();
 
 private:
     explicit Application(QObject *parent = nullptr);

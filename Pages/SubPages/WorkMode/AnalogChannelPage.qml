@@ -42,7 +42,6 @@ Page {
 
         // 保存到文件
         AnalogChannelPageConfig.saveAllConfig();
-        console.log("✅ 模拟量通道参数已保存");
     }
 
     // ====================== 加载配置到UI ======================
@@ -73,7 +72,6 @@ Page {
     // 页面加载完成自动读取配置
     Component.onCompleted: {
         loadConfigToUI();
-        console.log("✅ 模拟量通道配置已加载");
     }
 
     onVisibleChanged: {

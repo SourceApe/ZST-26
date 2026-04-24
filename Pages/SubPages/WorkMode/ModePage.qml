@@ -59,7 +59,6 @@ Page {
 
         // 保存配置
         ModePageConfig.saveAllConfig();
-        console.log("✅ 所有参数已保存");
         globalPopUps.saveSuccessVisible = true;
     }
 
@@ -106,7 +105,6 @@ Page {
     // 页面打开 → 自动加载
     Component.onCompleted: {
         loadConfigToUI();
-        console.log("✅ 配置已加载");
     }
     onVisibleChanged: {
         if(visible){

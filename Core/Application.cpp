@@ -2,20 +2,20 @@
 #include <QDateTime>
 
 #include "Application.h"
-#include "WorkModeManager.h"
+#include "WorkFlowManager.h"
 #include "../Devices/SerialPort.h"
 #include "../Devices/Modbus/ModbusRtuMaster.h"
+#include "../Pages/SubPages/WorkMode/ModePage.h"
+#include "../Devices/ModbusDevices/DriveBoard/DriveBoardCtrl.h"
 
 Application::Application(QObject *parent)
     : QObject{parent}
     , m_isRunning(false)
 {
-
     m_scheduleTimer.setInterval(1000);
     connect(&m_scheduleTimer, &QTimer::timeout, this, &Application::checkTime);
-
-    connect(WorkModeManager::instance(), &WorkModeManager::stopped,
-            this, &Application::stopRun);
+    connect(&WorkFlowManager::instance(), &WorkFlowManager::flowFinished,
+                this, &Application::onFlowFinished);
 }
 
 Application* Application::instance()
@@ -26,13 +26,25 @@ Application* Application::instance()
 
 void Application::init()
 {
-    SerialPort::instance()->initPort(0, "ttymxc1");
-    SerialPort::instance()->initPort(1, "ttymxc2");
-    SerialPort::instance()->initPort(2, "ttymxc4");
-    SerialPort::instance()->initPort(4, "ttymxc6");
-    SerialPort::instance()->initPort(5, "ttymxc7");
+    SerialPort::instance().initPort(0, "ttymxc1");
+    SerialPort::instance().initPort(1, "ttymxc2");
+//    SerialPort::instance().initPort(2, "ttymxc4");
+//    SerialPort::instance().initPort(3, "ttymxc5");
+//    SerialPort::instance().initPort(4, "ttymxc6");
+//    SerialPort::instance().initPort(5, "ttymxc7");
 
-    ModbusRtuMaster::instance()->initPort(3, "ttymxc5");
+//    ModbusRtuMaster::instance()->initPort(0, "ttymxc1");
+//    ModbusRtuMaster::instance()->initPort(1, "ttymxc2");
+    ModbusRtuMaster::instance().initPort(2, "ttymxc4");
+    ModbusRtuMaster::instance().initPort(3, "ttymxc5");
+    ModbusRtuMaster::instance().initPort(4, "ttymxc6");
+    ModbusRtuMaster::instance().initPort(5, "ttymxc7");
+
+    // 驱动板延迟初始化
+    QTimer::singleShot(1000, [](){
+        DriveBoardCtrl::instance().init();
+    });
+
     qDebug() << "✅ 设备初始化完成";
 }
 
@@ -41,22 +53,23 @@ void Application::startRun()
     if (m_isRunning) return;
 
     m_isRunning = true;
-    WorkModeManager::instance()->start();
+    WorkFlowManager::instance().startFlow();
 }
 
-// ======================
-// ✅ 修复：真正停止底层
-// ======================
+void Application::onFlowFinished()
+{
+    if (!m_isRunning) return;
+    m_isRunning = false;
+    stopSchedule();
+}
+
 void Application::stopRun()
 {
     if (!m_isRunning) return;
 
-    // 先停止底层模式
-    WorkModeManager::instance()->stop();
-
-    // 再更新状态
+     WorkFlowManager::instance().stopFlow();
     m_isRunning = false;
-
+    stopSchedule();
     qDebug() << "设备已停止";
 }
 

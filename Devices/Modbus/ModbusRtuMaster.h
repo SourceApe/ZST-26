@@ -3,15 +3,18 @@
 
 #include <QObject>
 #include <QSerialPort>
-#include <QModbusRtuSerialMaster>   // ✅ Qt5.12.9 唯一正确
+#include <QModbusRtuSerialMaster>
 #include <QModbusDataUnit>
 #include <QModbusReply>
+#include <QVector>
+#include <QReadWriteLock>
+#include <QMutex>
 
 class ModbusRtuMaster : public QObject
 {
     Q_OBJECT
 public:
-    static ModbusRtuMaster* instance();
+    static ModbusRtuMaster& instance();
 
     bool initPort(int portIndex, const QString& portName,
                   qint32 baudRate = QSerialPort::Baud9600,
@@ -23,18 +26,37 @@ public:
 
     bool writeCoil(int portIndex, int serverAddr, int coilAddr, bool value);
     bool writeHoldingReg(int portIndex, int serverAddr, int regAddr, quint16 value);
+    bool writeMultiHoldingReg(int portIndex, int serverAddr, int startAddr, const QVector<quint16>& values);
     bool readInputReg(int portIndex, int serverAddr, int regAddr, int len);
     bool readHoldingReg(int portIndex, int serverAddr, int regAddr, int len);
 
+    // ==============================
+    // 工业级缓存读取接口
+    // ==============================
+    quint16 getHoldingReg(int port, int slave, int addr);
+    void setHoldingReg(int port, int slave, int addr, quint16 value);
+    quint16 getInputReg(int port, int slave, int addr);
+
 signals:
-    void regDataReceived(int portIndex, const QVector<quint16>& data);
+    void regDataReceived(int portIndex, int slaveAddr, const QVector<quint16>& data);
     void modbusError(int portIndex, const QString& errorMsg);
+
+private slots:
+    void onWriteHoldingRegRequested(int port, int slave, int regAddr);
 
 private:
     explicit ModbusRtuMaster(QObject *parent = nullptr);
 
-    // ✅ 正确类型
     QModbusRtuSerialMaster* m_client[6];
+
+    // ==============================
+    // 【工业标准三维缓存】
+    // [串口][从机地址][寄存器地址] = 值
+    // ==============================
+    QVector<quint16> m_holdingReg[6][256];
+    QVector<quint16> m_inputReg[6][256];
+
+    QReadWriteLock m_lock;  // 线程安全
 };
 
 #endif

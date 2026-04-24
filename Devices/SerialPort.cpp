@@ -9,10 +9,10 @@ SerialPort::SerialPort(QObject *parent)
     }
 }
 
-SerialPort* SerialPort::instance()
+SerialPort& SerialPort::instance()
 {
     static SerialPort s_instance;
-    return &s_instance;
+    return s_instance;
 }
 
 bool SerialPort::initPort(int index, const QString &portName,

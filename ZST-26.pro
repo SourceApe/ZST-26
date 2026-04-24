@@ -15,11 +15,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Core/Application.cpp \
-    Core/WorkModeManager.cpp \
+    Core/WorkFlowManager.cpp \
+    Core/WorkModes/Retain/OverLimitRetainMode.cpp \
+    Core/WorkModes/Retain/RetainBase.cpp \
+    Core/WorkModes/Retain/RetainManager.cpp \
+    Core/WorkModes/Retain/SyncRetainMode.cpp \
+    Core/WorkModes/Sample/ExtTriggerSampleMode.cpp \
     Core/WorkModes/Sample/FixedSampleMode.cpp \
+    Core/WorkModes/Sample/FlowRatioMode.cpp \
+    Core/WorkModes/Sample/FlowTrackMode.cpp \
     Core/WorkModes/Sample/SampleBase.cpp \
+    Core/WorkModes/Sample/SampleManager.cpp \
+    Core/WorkModes/Sample/TimeRatioMode.cpp \
+    Core/WorkModes/Supply/ExtTriggerSupplyMode.cpp \
+    Core/WorkModes/Supply/ImmediateSupplyMode.cpp \
+    Core/WorkModes/Supply/SupplyBase.cpp \
+    Core/WorkModes/Supply/SupplyManager.cpp \
+    Core/WorkModes/Supply/TimedSupplyMode.cpp \
     Devices/BuzzerCtrl.cpp \
     Devices/Modbus/ModbusRtuMaster.cpp \
+    Devices/ModbusDevices/DeviceDataHub.cpp \
+    Devices/ModbusDevices/DriveBoard/DriveBoardCtrl.cpp \
     Devices/SerialPort.cpp \
     MainPage.cpp \
     Pages/SubPages/Debug/CalibrationPage.cpp \
@@ -48,11 +64,27 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     Core/Application.h \
-    Core/WorkModeManager.h \
+    Core/WorkFlowManager.h \
+    Core/WorkModes/Retain/OverLimitRetainMode.h \
+    Core/WorkModes/Retain/RetainBase.h \
+    Core/WorkModes/Retain/RetainManager.h \
+    Core/WorkModes/Retain/SyncRetainMode.h \
+    Core/WorkModes/Sample/ExtTriggerSampleMode.h \
     Core/WorkModes/Sample/FixedSampleMode.h \
+    Core/WorkModes/Sample/FlowRatioMode.h \
+    Core/WorkModes/Sample/FlowTrackMode.h \
     Core/WorkModes/Sample/SampleBase.h \
+    Core/WorkModes/Sample/SampleManager.h \
+    Core/WorkModes/Sample/TimeRatioMode.h \
+    Core/WorkModes/Supply/ExtTriggerSupplyMode.h \
+    Core/WorkModes/Supply/ImmediateSupplyMode.h \
+    Core/WorkModes/Supply/SupplyBase.h \
+    Core/WorkModes/Supply/SupplyManager.h \
+    Core/WorkModes/Supply/TimedSupplyMode.h \
     Devices/BuzzerCtrl.h \
     Devices/Modbus/ModbusRtuMaster.h \
+    Devices/ModbusDevices/DeviceDataHub.h \
+    Devices/ModbusDevices/DriveBoard/DriveBoardCtrl.h \
     Devices/SerialPort.h \
     MainPage.h \
     Pages/SubPages/Debug/CalibrationPage.h \

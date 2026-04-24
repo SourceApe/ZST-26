@@ -19,7 +19,6 @@ Page {
         FridgePageConfig.defrostTime = defrostTimeInput.inputText;
 
         FridgePageConfig.saveAllConfig();
-        console.log("✅ 制冷参数已保存");
     }
 
     // ====================== 【加载】打开/切回页面自动恢复 ======================
@@ -33,12 +32,11 @@ Page {
 
     Component.onCompleted: {
         loadConfigToUI();
-        console.log("✅ 制冷配置已加载");
     }
 
     onVisibleChanged: {
         if(visible){
-            loadConfigToUI();  // 不保存 → 切回来自动恢复
+            loadConfigToUI();
         }
     }
 

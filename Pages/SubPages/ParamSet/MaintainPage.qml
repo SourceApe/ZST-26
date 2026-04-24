@@ -28,7 +28,6 @@ Page {
         MaintainPageConfig.retainPumpLife = retainPumpLifeInput.inputText;
 
         MaintainPageConfig.saveAllConfig();
-        console.log("✅ 维护参数已保存");
     }
 
     // ====================== 加载（切页自动恢复） ======================
@@ -51,7 +50,6 @@ Page {
 
     Component.onCompleted: {
         loadConfigToUI();
-        console.log("✅ 维护配置已加载");
     }
 
     onVisibleChanged: {

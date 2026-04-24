@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickWindow>
 
 #include "Core/Application.h"
 
@@ -45,12 +46,24 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<CalibrationPage>("com.calibrationpage.config",1,0,"CalibrationPageConfig", registerSingleton<CalibrationPage>);
 
     qmlRegisterSingletonType<Application>("com.application.config",1,0,"ApplicationConfig", registerSingleton<Application>);
-    Application::instance()->init();
+
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
+
+    QObject* root = engine.rootObjects().first();
+    QQuickWindow* window = qobject_cast<QQuickWindow*>(root);
+    if (window) {
+        // 监听：界面第一次渲染完成（真正显示到屏幕）
+        QObject::connect(window, &QQuickWindow::frameSwapped, window, [=]() {
+            qDebug() << "✅ QML 界面全部加载完成！";
+
+            Application::instance()->init();
+            window->disconnect(); // 只执行一次
+        });
+    }
 
     return app.exec();
 }

@@ -8,7 +8,7 @@ class SerialPort : public QObject
 {
     Q_OBJECT
 public:
-    static SerialPort* instance();
+    static SerialPort& instance();
 
     // 单独初始化某个串口（和 Modbus 风格一样）
     bool initPort(int index, const QString& portName,

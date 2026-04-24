@@ -14,8 +14,8 @@ Page {
 
     // ====================== 只保存 第一页 ======================
     function savePage1ToConfig() {
-        PumpValvePageConfig.sampleCleanTimes = cleanTimesInput.inputText;
-        PumpValvePageConfig.sampleCleanVol = cleanVolInput.inputText;
+        PumpValvePageConfig.sampleBottleCleanCnt = sampleBottleCleanCntInput.inputText;
+        PumpValvePageConfig.sampleBucketCleanVol = sampleBucketCleanVolInput.inputText;
         PumpValvePageConfig.sampleStirTime = stirTimeInput.inputText;
         PumpValvePageConfig.sampleEmptyTime = emptyTimeInput.inputText;
         PumpValvePageConfig.samplePipeEmptyTime = pipeEmptyInput.inputText;
@@ -34,27 +34,25 @@ Page {
         PumpValvePageConfig.calibSecond = secondInput.inputText;
 
         PumpValvePageConfig.saveAllConfig();
-        console.log("✅ 第1页参数已保存");
     }
 
     // ====================== 只保存 第二页 ======================
     function savePage2ToConfig() {
         PumpValvePageConfig.samplePumpSpeed = samplePumpInput.inputText;
         PumpValvePageConfig.retainPumpSpeed = retainPumpInput.inputText;
-        PumpValvePageConfig.sampleBottleVol = sampleBottleVolInput.inputText;
+        PumpValvePageConfig.sampleBucketVol = sampleBucketVolInput.inputText;
         PumpValvePageConfig.retainBottleVol = retainBottleVolInput.inputText;
         PumpValvePageConfig.retainBottleCount = retainBottleCountInput.inputText;
         PumpValvePageConfig.flowMeterRange = flowRangeInput.inputText;
         PumpValvePageConfig.pulseFlowMeter = pulseFlowInput.inputText;
 
         PumpValvePageConfig.saveAllConfig();
-        console.log("✅ 第2页参数已保存");
     }
 
     // ====================== 加载配置（不变） ======================
     function loadConfigToUI() {
-        cleanTimesInput.inputText = PumpValvePageConfig.sampleCleanTimes;
-        cleanVolInput.inputText = PumpValvePageConfig.sampleCleanVol;
+        sampleBucketCleanCntInput.inputText = PumpValvePageConfig.sampleBucketCleanCnt;
+        sampleBucketCleanVolInput.inputText = PumpValvePageConfig.sampleBucketCleanVol;
         stirTimeInput.inputText = PumpValvePageConfig.sampleStirTime;
         emptyTimeInput.inputText = PumpValvePageConfig.sampleEmptyTime;
         pipeEmptyInput.inputText = PumpValvePageConfig.samplePipeEmptyTime;
@@ -74,7 +72,7 @@ Page {
 
         samplePumpInput.inputText = PumpValvePageConfig.samplePumpSpeed;
         retainPumpInput.inputText = PumpValvePageConfig.retainPumpSpeed;
-        sampleBottleVolInput.inputText = PumpValvePageConfig.sampleBottleVol;
+        sampleBucketVolInput.inputText = PumpValvePageConfig.sampleBucketVol;
         retainBottleVolInput.inputText = PumpValvePageConfig.retainBottleVol;
         retainBottleCountInput.inputText = PumpValvePageConfig.retainBottleCount;
         flowRangeInput.inputText = PumpValvePageConfig.flowMeterRange;
@@ -83,7 +81,6 @@ Page {
 
     Component.onCompleted: {
         loadConfigToUI();
-        console.log("✅ 泵阀参数加载完成");
     }
     onVisibleChanged: {
         if(visible) loadConfigToUI();
@@ -108,8 +105,8 @@ Page {
             }
             RowLayout {
                 spacing: 40
-                LabelInputField { id: cleanTimesInput; labelText: "采样桶清洗次数:"; labelWidth: 190 }
-                LabelInputField { id: cleanVolInput; Layout.leftMargin: 15; labelText: "采样桶清洗体积:"; unitText: "mL"; labelWidth: 170 }
+                LabelInputField { id: sampleBucketCleanCntInput; labelText: "采样桶清洗次数:"; labelWidth: 190 }
+                LabelInputField { id: sampleBucketCleanVolInput; Layout.leftMargin: 15; labelText: "采样桶清洗体积:"; unitText: "mL"; labelWidth: 170 }
             }
             RowLayout {
                 spacing: 40
@@ -190,7 +187,7 @@ Page {
 
             LabelInputField { id: samplePumpInput; labelText: "采样泵转速:"; unitText:"PSC/S"; labelWidth: 110; }
             LabelInputField { id: retainPumpInput; labelText: "留样泵转速:"; unitText:"PSC/S"; labelWidth: 110; }
-            LabelInputField { id: sampleBottleVolInput; labelText: "采样桶容积:"; unitText:"mL"; labelWidth: 110; }
+            LabelInputField { id: sampleBucketVolInput; labelText: "采样桶容积:"; unitText:"mL"; labelWidth: 110; }
             LabelInputField { id: retainBottleVolInput; labelText: "留样瓶容积:"; unitText:"mL"; labelWidth: 110; }
             LabelInputField { id: retainBottleCountInput; labelText: "留样瓶瓶数:";  labelWidth: 110; }
 

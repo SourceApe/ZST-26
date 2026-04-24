@@ -20,7 +20,6 @@ Page {
         CommunicationPageConfig.rs232ProtoIndex = rs232ProtoBox.currentIndex;
 
         CommunicationPageConfig.saveAllConfig();
-        console.log("✅ 通讯参数已保存");
     }
 
     // ====================== 加载（切换页面自动恢复） ======================
@@ -35,7 +34,6 @@ Page {
 
     Component.onCompleted: {
         loadConfigToUI();
-        console.log("✅ 通讯配置已加载");
     }
 
     onVisibleChanged: {
